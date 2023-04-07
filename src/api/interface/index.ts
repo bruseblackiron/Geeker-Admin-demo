@@ -33,6 +33,7 @@ export namespace Upload {
 // * 登录模块
 export namespace Login {
 	export interface ReqLoginForm {
+		tenantName: string;
 		username: string;
 		password: string;
 	}
@@ -41,6 +42,9 @@ export namespace Login {
 	}
 	export interface ResAuthButtons {
 		[key: string]: string[];
+	}
+	export interface LoginVerify {
+		captchaType: string;
 	}
 }
 

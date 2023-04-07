@@ -23,7 +23,7 @@
 				"icon": "Histogram",
 				"title": "数据大屏",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": true,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -37,7 +37,7 @@
 				"icon": "MessageBox",
 				"title": "超级表格",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -66,7 +66,7 @@
 								"title": "ProTable 详情",
 								"activeMenu": "/proTable/useProTable",
 								"isLink": "",
-								"isHide": true,
+								"isHide":false,
 								"isFull": false,
 								"isAffix": false,
 								"isKeepAlive": true
@@ -97,7 +97,7 @@
 						"title": "TreeFilter 详情",
 						"activeMenu": "/proTable/useTreeFilter",
 						"isLink": "",
-						"isHide": true,
+						"isHide":false,
 						"isFull": false,
 						"isAffix": false,
 						"isKeepAlive": true
@@ -169,7 +169,7 @@
 				"icon": "Lock",
 				"title": "权限管理",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -213,7 +213,7 @@
 				"icon": "Briefcase",
 				"title": "常用组件",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -399,7 +399,7 @@
 				"icon": "Tickets",
 				"title": "表单 Form",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -471,7 +471,7 @@
 				"icon": "TrendCharts",
 				"title": "Echarts",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -571,7 +571,7 @@
 				"icon": "Stamp",
 				"title": "自定义指令",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -671,7 +671,7 @@
 				"icon": "List",
 				"title": "菜单嵌套",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -803,7 +803,7 @@
 				"icon": "Tools",
 				"title": "系统管理",
 				"isLink": "",
-				"isHide": true,
+				"isHide": false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true
@@ -917,7 +917,7 @@
 				"icon": "Paperclip",
 				"title": "外部链接",
 				"isLink": "",
-				"isHide": true,
+				"isHide":false,
 				"isFull": false,
 				"isAffix": false,
 				"isKeepAlive": true

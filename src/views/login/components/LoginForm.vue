@@ -1,5 +1,12 @@
 <template>
 	<el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" size="large">
+		<el-form-item prop="tenantName">
+			<el-input v-model="loginForm.tenantName" placeholder="租户名称：芋道源码">
+				<template #prefix>
+					<el-icon class="el-input__icon"><House /></el-icon>
+				</template>
+			</el-input>
+		</el-form-item>
 		<el-form-item prop="username">
 			<el-input v-model="loginForm.username" placeholder="用户名：admin / user">
 				<template #prefix>
@@ -14,6 +21,13 @@
 				</template>
 			</el-input>
 		</el-form-item>
+		<Verify
+			ref="verify"
+			mode="pop"
+			:captchaType="captchaType"
+			:imgSize="{ width: '400px', height: '200px' }"
+			@success="handleLogin(loginFormRef)"
+		/>
 	</el-form>
 	<div class="login-btn">
 		<el-button :icon="CircleClose" round @click="resetForm(loginFormRef)" size="large">重置</el-button>
@@ -23,7 +37,7 @@
 	</div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { Login } from "@/api/interface";
@@ -38,6 +52,7 @@ import { initDynamicRouter } from "@/routers/modules/dynamicRouter";
 import { CircleClose, UserFilled } from "@element-plus/icons-vue";
 import type { ElForm } from "element-plus";
 import md5 from "js-md5";
+import Verify from "@/components/Verifition/src/Verify.vue";
 
 const router = useRouter();
 const tabsStore = TabsStore();
@@ -48,13 +63,33 @@ const globalStore = GlobalStore();
 type FormInstance = InstanceType<typeof ElForm>;
 const loginFormRef = ref<FormInstance>();
 const loginRules = reactive({
+	tenantName: [{ required: true, message: "请输入租户名", trigger: "blur" }],
 	username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
 	password: [{ required: true, message: "请输入密码", trigger: "blur" }]
 });
 
 const loading = ref(false);
-const loginForm = reactive<Login.ReqLoginForm>({ username: "", password: "" });
+const loginForm = reactive<Login.ReqLoginForm>({ tenantName: "", username: "", password: "" });
+
+const verify = ref();
+const captchaType = ref("blockPuzzle"); // blockPuzzle 滑块 clickWord 点击文字
+
 const login = (formEl: FormInstance | undefined) => {
+	if (!formEl) return;
+	formEl.validate(async valid => {
+		if (!valid) return;
+		verify.value.show();
+	});
+};
+
+// resetForm
+const resetForm = (formEl: FormInstance | undefined) => {
+	if (!formEl) return;
+	formEl.resetFields();
+};
+
+// 登录
+const handleLogin = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.validate(async valid => {
 		if (!valid) return;
@@ -68,11 +103,11 @@ const login = (formEl: FormInstance | undefined) => {
 			await initDynamicRouter();
 
 			// 3.清空 tabs、keepAlive 保留的数据
-			tabsStore.closeMultipleTab();
-			keepAlive.setKeepAliveName();
+			await tabsStore.closeMultipleTab();
+			await keepAlive.setKeepAliveName();
 
 			// 4.跳转到首页
-			router.push(HOME_URL);
+			await router.push(HOME_URL);
 			ElNotification({
 				title: getTimeState(),
 				message: "欢迎登录 Start at once",
@@ -85,19 +120,14 @@ const login = (formEl: FormInstance | undefined) => {
 	});
 };
 
-// resetForm
-const resetForm = (formEl: FormInstance | undefined) => {
-	if (!formEl) return;
-	formEl.resetFields();
-};
-
 onMounted(() => {
 	// 监听enter事件（调用登录）
 	document.onkeydown = (e: any) => {
 		e = window.event || e;
 		if (e.code === "Enter" || e.code === "enter" || e.code === "NumpadEnter") {
 			if (loading.value) return;
-			login(loginFormRef.value);
+			//login(loginFormRef.value);
+			verify.value.show();
 		}
 	};
 });
